@@ -1,0 +1,18 @@
+#!/usr/bin/with-contenv sh
+mkdir -p /etc/nginx/ssl
+
+if [ ! -f /etc/nginx/ssl/wildcard.repo.crt ]; then
+    openssl genrsa -out /etc/nginx/ssl/wildcard.repo.key 2048
+    
+    echo "[req]
+distinguished_name=dn
+[dn]
+CN=*.repo
+[v3_ext]
+subjectAltName=DNS:*.repo,DNS:repo" > /tmp/ssl.conf
+
+    openssl req -new -key /etc/nginx/ssl/wildcard.repo.key -out /tmp/ssl.csr -subj '/CN=*.repo'
+    openssl x509 -req -in /tmp/ssl.csr -CA /certs/rootca.crt -CAkey /certs/rootca.key \
+        -CAcreateserial -out /etc/nginx/ssl/wildcard.repo.crt -days 365 -sha256 \
+        -extfile /tmp/ssl.conf -extensions v3_ext
+fi

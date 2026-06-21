@@ -1,0 +1,2 @@
+#!/usr/bin/with-contenv sh
+exec dnsmasq --keep-in-foreground --conf-file=/etc/dnsmasq.conf

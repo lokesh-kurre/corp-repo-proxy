@@ -1,0 +1,5 @@
+log-queries
+server=10.0.0.1 # Corporate Upstream DNS Changer
+
+# Wildcard routing rule based on YAML setting
+address=/.{{getv "/proxy/domain_suffix"}}/127.0.0.1

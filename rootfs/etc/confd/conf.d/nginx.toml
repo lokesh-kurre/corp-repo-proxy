@@ -1,0 +1,15 @@
+[template]
+src = "nginx.conf.tmpl"
+dest = "/etc/nginx/conf.d/repo-proxy.conf"
+keys = [
+    "/proxy/routes",
+]
+reload_cmd = "nginx -s reload"
+
+[template.dns]
+src = "dnsmasq.conf.tmpl"
+dest = "/etc/dnsmasq.conf"
+keys = [
+    "/proxy/domain_suffix",
+]
+reload_cmd = "s6-svc -h /var/run/s6/services/dnsmasq" # Tells s6 to SIGHUP dnsmasq to reload

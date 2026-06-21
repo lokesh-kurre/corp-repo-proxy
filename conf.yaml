@@ -1,0 +1,14 @@
+proxy:
+  domain_suffix: "repo"
+  routes:
+    - src_host: "ubuntu.repo"
+      src_path: "/ubuntu"
+      dest_url: "http://internal-repo-server.corp/mirror/ubuntu"
+    
+    - src_host: "pypi.repo"
+      src_path: "/simple"
+      dest_url: "https://nexus.corp/repository/pypi-proxy/simple"
+      
+    - src_host: "docker.repo"
+      src_path: "/v2"
+      dest_url: "https://harbor.corp/v2"
